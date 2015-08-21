@@ -15,7 +15,7 @@ function decode (buffer) {
 
   var lenS = buffer[5 + lenR]
   if (lenS === 0) throw new Error('S length is zero')
-  if ((lenR + lenS + 6) !== buffer.length) throw new Error('S length is too long')
+  if ((6 + lenR + lenS) !== buffer.length) throw new Error('S length is invalid')
 
   if (buffer[4] & 0x80) throw new Error('R value is negative')
   if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80)) throw new Error('R value excessively padded')

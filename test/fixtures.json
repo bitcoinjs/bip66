@@ -111,7 +111,7 @@
         "DER": "300c02dd00ffffff020400ffffff"
       },
       {
-        "exception": "S length is too long",
+        "exception": "S length is invalid",
         "DER": "300c020400ffffff02dd00ffffff"
       },
       {
