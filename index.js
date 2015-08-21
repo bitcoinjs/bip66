@@ -4,7 +4,7 @@ function decode (buffer) {
   // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
   if (buffer.length < 8) throw new Error('DER sequence too short')
   if (buffer.length > 72) throw new Error('DER sequence too long')
-  if (buffer[0] !== 0x30) throw new Error('Not a DER sequence')
+  if (buffer[0] !== 0x30) throw new Error('Expected DER sequence')
   if (buffer[1] !== buffer.length - 2) throw new Error('Invalid sequence length')
   if (buffer[2] !== 0x02) throw new Error('Expected a DER integer')
 

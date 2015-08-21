@@ -79,6 +79,10 @@
         "DER": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
       {
+        "exception": "Expected DER sequence",
+        "DER": "00ffff0400ffffff020400ffffff"
+      },
+      {
         "exception": "Invalid sequence length",
         "DER": "30ff020400ffffff020400ffffff"
       },
