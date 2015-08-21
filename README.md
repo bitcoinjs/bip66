@@ -5,6 +5,7 @@
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+Strict DER signature encoding/decoding.t
 
 See [bip66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki).
 
