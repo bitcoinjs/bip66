@@ -95,14 +95,6 @@
         "DER": "300c020200ffffff020400ffffff"
       },
       {
-        "exception": "Invalid DER encoding",
-        "DER": "300c0204ddffffff020200ffffff"
-      },
-      {
-        "exception": "Invalid DER encoding \\(2\\)",
-        "DER": "300c020400ffffff02dd00ffffff"
-      },
-      {
         "exception": "R length is zero",
         "DER": "30080200020400ffffff"
       },
@@ -111,12 +103,20 @@
         "DER": "3008020400ffffff0200"
       },
       {
+        "exception": "R length is too long",
+        "DER": "300c02dd00ffffff020400ffffff"
+      },
+      {
+        "exception": "S length is too long",
+        "DER": "300c020400ffffff02dd00ffffff"
+      },
+      {
         "exception": "R value is negative",
-        "DER": "300c0204ffffffff020400ffffff"
+        "DER": "300c020480000000020400ffffff"
       },
       {
         "exception": "S value is negative",
-        "DER": "300c020400ffffff0204ffffffff"
+        "DER": "300c020400ffffff020480000000"
       },
       {
         "exception": "R value excessively padded",

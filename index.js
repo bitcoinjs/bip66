@@ -10,12 +10,12 @@ function decode (buffer) {
 
   var lenR = buffer[3]
   if (lenR === 0) throw new Error('R length is zero')
-  if (5 + lenR >= buffer.length) throw new Error('Invalid DER encoding')
+  if (5 + lenR >= buffer.length) throw new Error('R length is too long')
   if (buffer[4 + lenR] !== 0x02) throw new Error('Expected a DER integer (2)')
 
   var lenS = buffer[5 + lenR]
   if (lenS === 0) throw new Error('S length is zero')
-  if ((lenR + lenS + 6) !== buffer.length) throw new Error('Invalid DER encoding (2)')
+  if ((lenR + lenS + 6) !== buffer.length) throw new Error('S length is too long')
 
   if (buffer[4] & 0x80) throw new Error('R value is negative')
   if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80)) throw new Error('R value excessively padded')
