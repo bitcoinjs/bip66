@@ -25,7 +25,11 @@ bip66.decode(
 //	r: Buffer <1e a1 fd ff 81 b3 a2 71 65 9d f4 aa d1 9b c4 ef 83 de f3 89 13 1a 36 35 8f e6 4b 24 56 32 e7 77>,
 //	s: Buffer <29 e1 64 65 8b e9 ce 81 09 21 bf 81 d6 b8 66 94 78 5a 79 ea 1e 52 db fa 51 05 14 8d 1f 0b c1>
 // }
+```
 
+A catch-all exception regex:
+``` javascript
+/Expected DER (integer|sequence)|(R|S) value (excessively padded|is negative)|(R|S|DER sequence) length is (zero|too short|too long|invalid)/
 ```
 
 ## LICENSE [MIT](LICENSE)
