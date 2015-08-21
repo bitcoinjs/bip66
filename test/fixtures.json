@@ -71,11 +71,11 @@
     ],
     "decode": [
       {
-        "exception": "DER sequence length too short",
+        "exception": "DER sequence length is too short",
         "DER": "ffffffffffffff"
       },
       {
-        "exception": "DER sequence length too long",
+        "exception": "DER sequence length is too long",
         "DER": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
       {
