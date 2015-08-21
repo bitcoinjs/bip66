@@ -83,11 +83,11 @@
         "DER": "00ffff0400ffffff020400ffffff"
       },
       {
-        "exception": "Invalid sequence length",
+        "exception": "DER sequence length is invalid",
         "DER": "30ff020400ffffff020400ffffff"
       },
       {
-        "exception": "Invalid sequence length",
+        "exception": "DER sequence length is invalid",
         "DER": "300c030400ffffff030400ffffff0000"
       },
       {
