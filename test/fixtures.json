@@ -2,111 +2,129 @@
   "valid": [
     {
       "DER": "3044022029db2d5f4e1dcc04e19266cce3cb135865784c62ab653b307f0e0bb744f5c2aa022000a97f5826912cac8b44d9f577a26f169a2f8db781f2ddb7de2bc886e93b6844",
-      "signature": {
-        "r": "29db2d5f4e1dcc04e19266cce3cb135865784c62ab653b307f0e0bb744f5c2aa",
-        "s": "00a97f5826912cac8b44d9f577a26f169a2f8db781f2ddb7de2bc886e93b6844"
-      }
+      "r": "29db2d5f4e1dcc04e19266cce3cb135865784c62ab653b307f0e0bb744f5c2aa",
+      "s": "00a97f5826912cac8b44d9f577a26f169a2f8db781f2ddb7de2bc886e93b6844"
     },
     {
       "DER": "304302201ea1fdff81b3a271659df4aad19bc4ef83def389131a36358fe64b245632e777021f29e164658be9ce810921bf81d6b86694785a79ea1e52dbfa5105148d1f0bc1",
-      "signature": {
-        "r": "1ea1fdff81b3a271659df4aad19bc4ef83def389131a36358fe64b245632e777",
-        "s": "29e164658be9ce810921bf81d6b86694785a79ea1e52dbfa5105148d1f0bc1"
-      }
+      "r": "1ea1fdff81b3a271659df4aad19bc4ef83def389131a36358fe64b245632e777",
+      "s": "29e164658be9ce810921bf81d6b86694785a79ea1e52dbfa5105148d1f0bc1"
     },
     {
       "DER": "304402201b19519b38ca1e6813cd25649ad36be8bc6a6f2ad9758089c429acd9ce0b572f02203bf32193c8a3a3de1f847cd6e6eebf43c96df1ffa4d7fe920f8f71708920c65f",
-      "signature": {
-        "r": "1b19519b38ca1e6813cd25649ad36be8bc6a6f2ad9758089c429acd9ce0b572f",
-        "s": "3bf32193c8a3a3de1f847cd6e6eebf43c96df1ffa4d7fe920f8f71708920c65f"
-      }
+      "r": "1b19519b38ca1e6813cd25649ad36be8bc6a6f2ad9758089c429acd9ce0b572f",
+      "s": "3bf32193c8a3a3de1f847cd6e6eebf43c96df1ffa4d7fe920f8f71708920c65f"
     },
     {
       "DER": "3044022000c8da1836747d05a6a3d2c395825edce827147d15909e66939a5037d5916e6f022017823c2da62f539d7f8e1e186eaea7a401ab3c077dcfc44aeaf3e13fac99bdbc",
-      "signature": {
-        "r": "00c8da1836747d05a6a3d2c395825edce827147d15909e66939a5037d5916e6f",
-        "s": "17823c2da62f539d7f8e1e186eaea7a401ab3c077dcfc44aeaf3e13fac99bdbc"
-      }
+      "r": "00c8da1836747d05a6a3d2c395825edce827147d15909e66939a5037d5916e6f",
+      "s": "17823c2da62f539d7f8e1e186eaea7a401ab3c077dcfc44aeaf3e13fac99bdbc"
     },
     {
       "DER": "3042021e2ff2609c8dc0392d3731a2c6312841e09c76f10b83e2b52604dc84886dd502200090ac80e787c063618192bc04758e6666d0179c377fb2f3d6105d58000f33ac",
-      "signature": {
-        "r": "2ff2609c8dc0392d3731a2c6312841e09c76f10b83e2b52604dc84886dd5",
-        "s": "0090ac80e787c063618192bc04758e6666d0179c377fb2f3d6105d58000f33ac"
-      }
+      "r": "2ff2609c8dc0392d3731a2c6312841e09c76f10b83e2b52604dc84886dd5",
+      "s": "0090ac80e787c063618192bc04758e6666d0179c377fb2f3d6105d58000f33ac"
     },
     {
       "DER": "3041021d00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb02202e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e9",
-      "signature": {
-        "r": "00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb",
-        "s": "2e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e9"
-      }
+      "r": "00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb",
+      "s": "2e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e9"
     },
     {
       "DER": "303e021d00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd021d009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6",
-      "signature": {
-        "r": "00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd",
-        "s": "009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6"
-      }
+      "r": "00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd",
+      "s": "009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6"
     }
   ],
   "invalid": {
-    "DER": [
-      {
-        "exception": "DER sequence too short",
-        "hex": "ffffffffffffff"
-      },
-      {
-        "exception": "DER sequence too long",
-        "hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-      },
-      {
-        "exception": "Invalid sequence length",
-        "hex": "30ff020400ffffff020400ffffff"
-      },
-      {
-        "exception": "Invalid sequence length",
-        "hex": "300c030400ffffff030400ffffff0000"
-      },
-      {
-        "exception": "Expected a DER integer",
-        "hex": "300cff0400ffffff020400ffffff"
-      },
-      {
-        "exception": "Expected a DER integer \\(2\\)",
-        "hex": "300c020200ffffff020400ffffff"
-      },
-      {
-        "exception": "Invalid DER encoding",
-        "hex": "300c0204ddffffff020200ffffff"
-      },
-      {
-        "exception": "Invalid DER encoding \\(2\\)",
-        "hex": "300c020400ffffff02dd00ffffff"
-      },
+    "encode": [
       {
         "exception": "R length is zero",
-        "hex": "30080200020400ffffff"
+        "r": "",
+        "s": "0080000000000000000000000000000000000000000000000000000000000000"
       },
       {
         "exception": "S length is zero",
-        "hex": "3008020400ffffff0200"
+        "r": "0080000000000000000000000000000000000000000000000000000000000000",
+        "s": ""
       },
       {
-        "exception": "R value is negative",
-        "hex": "300c0204ffffffff020400ffffff"
+        "exception": "R length is too long",
+        "r": "00800000000000000000000000000000000000000000000000000000000000000000",
+        "s": "008000000000000000000000000000000000000000000000000000000000000000"
       },
       {
-        "exception": "S value is negative",
-        "hex": "300c020400ffffff0204ffffffff"
+        "exception": "S length is too long",
+        "r": "008000000000000000000000000000000000000000000000000000000000000000",
+        "s": "00800000000000000000000000000000000000000000000000000000000000000000"
       },
       {
         "exception": "R value excessively padded",
-        "hex": "300c02040000ffff020400ffffff"
+        "r": "0010000000000000000000000000000000000000000000000000000000000000",
+        "s": "0080000000000000000000000000000000000000000000000000000000000000"
       },
       {
         "exception": "S value excessively padded",
-        "hex": "300c020400ffffff02040000ffff"
+        "r": "0080000000000000000000000000000000000000000000000000000000000000",
+        "s": "0010000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "decode": [
+      {
+        "exception": "DER sequence too short",
+        "DER": "ffffffffffffff"
+      },
+      {
+        "exception": "DER sequence too long",
+        "DER": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      {
+        "exception": "Invalid sequence length",
+        "DER": "30ff020400ffffff020400ffffff"
+      },
+      {
+        "exception": "Invalid sequence length",
+        "DER": "300c030400ffffff030400ffffff0000"
+      },
+      {
+        "exception": "Expected a DER integer",
+        "DER": "300cff0400ffffff020400ffffff"
+      },
+      {
+        "exception": "Expected a DER integer \\(2\\)",
+        "DER": "300c020200ffffff020400ffffff"
+      },
+      {
+        "exception": "Invalid DER encoding",
+        "DER": "300c0204ddffffff020200ffffff"
+      },
+      {
+        "exception": "Invalid DER encoding \\(2\\)",
+        "DER": "300c020400ffffff02dd00ffffff"
+      },
+      {
+        "exception": "R length is zero",
+        "DER": "30080200020400ffffff"
+      },
+      {
+        "exception": "S length is zero",
+        "DER": "3008020400ffffff0200"
+      },
+      {
+        "exception": "R value is negative",
+        "DER": "300c0204ffffffff020400ffffff"
+      },
+      {
+        "exception": "S value is negative",
+        "DER": "300c020400ffffff0204ffffffff"
+      },
+      {
+        "exception": "R value excessively padded",
+        "DER": "300c02040000ffff020400ffffff"
+      },
+      {
+        "exception": "S value excessively padded",
+        "DER": "300c020400ffffff02040000ffff"
       }
     ]
   }

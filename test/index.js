@@ -7,30 +7,41 @@ var fixtures = require('./fixtures')
 describe('bip66', function () {
   describe('encode', function () {
     fixtures.valid.forEach(function (f) {
-      it('encodes ' + f.DER + ' correctly', function () {
-        var r = new Buffer(f.signature.r, 'hex')
-        var s = new Buffer(f.signature.s, 'hex')
+      it('encodes ' + f.r + ', ' + f.s, function () {
+        var r = new Buffer(f.r, 'hex')
+        var s = new Buffer(f.s, 'hex')
 
         var DER = bip66.encode(r, s)
         assert.strictEqual(DER.toString('hex'), f.DER)
+      })
+    })
+
+    fixtures.invalid.encode.forEach(function (f) {
+      it('throws "' + f.exception + '" for ' + f.r + ', ' + f.s, function () {
+        var r = new Buffer(f.r, 'hex')
+        var s = new Buffer(f.s, 'hex')
+
+        assert.throws(function () {
+          bip66.encode(r, s)
+        }, new RegExp(f.exception))
       })
     })
   })
 
   describe('decode', function () {
     fixtures.valid.forEach(function (f) {
-      it('decodes ' + f.DER + ' correctly', function () {
+      it('decodes ' + f.DER, function () {
         var buffer = new Buffer(f.DER, 'hex')
         var signature = bip66.decode(buffer)
 
-        assert.strictEqual(signature.r.toString('hex'), f.signature.r)
-        assert.strictEqual(signature.s.toString('hex'), f.signature.s)
+        assert.strictEqual(signature.r.toString('hex'), f.r)
+        assert.strictEqual(signature.s.toString('hex'), f.s)
       })
     })
 
-    fixtures.invalid.DER.forEach(function (f) {
-      it('throws "' + f.exception + '" for ' + f.hex, function () {
-        var buffer = new Buffer(f.hex, 'hex')
+    fixtures.invalid.decode.forEach(function (f) {
+      it('throws "' + f.exception + '" for ' + f.DER, function () {
+        var buffer = new Buffer(f.DER, 'hex')
 
         assert.throws(function () {
           bip66.decode(buffer)

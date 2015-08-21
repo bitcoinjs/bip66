@@ -57,10 +57,12 @@ function encode (r, s) {
   var lenS = s.length
   if (lenR === 0) throw new Error('R length is zero')
   if (lenS === 0) throw new Error('S length is zero')
-  if (lenR > 32) throw new Error('R is too long')
-  if (lenS > 32) throw new Error('S is too long')
+  if (lenR > 33) throw new Error('R length is too long')
+  if (lenS > 33) throw new Error('S length is too long')
   if (r[0] & 0x80) throw new Error('R value is negative')
   if (s[0] & 0x80) throw new Error('S value is negative')
+  if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80)) throw new Error('R value excessively padded')
+  if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80)) throw new Error('S value excessively padded')
 
   var signature = new Buffer(6 + lenR + lenS)
 
