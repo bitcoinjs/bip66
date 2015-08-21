@@ -1,0 +1,48 @@
+{
+  "name": "bip66",
+  "version": "1.0.0",
+  "description": ".",
+  "author": "Daniel Cousens",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitcoinjs/bip69.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitcoinjs/bip69/issues"
+  },
+  "homepage": "https://github.com/bitcoinjs/bip69",
+  "keywords": [
+    "bip69",
+    "bitcoin"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "coverage": "mocha --require blanket -R travis-cov",
+    "coverage-local": "mocha --require blanket -R html-cov",
+    "standard": "standard",
+    "test": "npm run standard && npm run unit",
+    "unit": "mocha"
+  },
+  "config": {
+    "blanket": {
+      "pattern": [
+        ""
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ]
+    },
+    "travis-cov": {
+      "threshold": 100
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "blanket": "*",
+    "mocha": "*",
+    "standard": "*",
+    "travis-cov": "*"
+  }
+}
