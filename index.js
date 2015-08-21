@@ -6,12 +6,12 @@ function decode (buffer) {
   if (buffer.length > 72) throw new Error('DER sequence too long')
   if (buffer[0] !== 0x30) throw new Error('Expected DER sequence')
   if (buffer[1] !== buffer.length - 2) throw new Error('Invalid sequence length')
-  if (buffer[2] !== 0x02) throw new Error('Expected a DER integer')
+  if (buffer[2] !== 0x02) throw new Error('Expected DER integer')
 
   var lenR = buffer[3]
   if (lenR === 0) throw new Error('R length is zero')
   if (5 + lenR >= buffer.length) throw new Error('R length is too long')
-  if (buffer[4 + lenR] !== 0x02) throw new Error('Expected a DER integer (2)')
+  if (buffer[4 + lenR] !== 0x02) throw new Error('Expected DER integer (2)')
 
   var lenS = buffer[5 + lenR]
   if (lenS === 0) throw new Error('S length is zero')

@@ -91,11 +91,11 @@
         "DER": "300c030400ffffff030400ffffff0000"
       },
       {
-        "exception": "Expected a DER integer",
+        "exception": "Expected DER integer",
         "DER": "300cff0400ffffff020400ffffff"
       },
       {
-        "exception": "Expected a DER integer \\(2\\)",
+        "exception": "Expected DER integer \\(2\\)",
         "DER": "300c020200ffffff020400ffffff"
       },
       {
