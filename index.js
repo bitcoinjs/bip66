@@ -1,7 +1,32 @@
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
-// NOTE: SIGHASH byte ignored AND restricted, truncate it before use
+// Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
+// NOTE: SIGHASH byte ignored AND restricted, truncate before use
+
+function check (buffer) {
+  if (buffer.length < 8) return false
+  if (buffer.length > 72) return false
+  if (buffer[0] !== 0x30) return false
+  if (buffer[1] !== buffer.length - 2) return false
+  if (buffer[2] !== 0x02) return false
+
+  var lenR = buffer[3]
+  if (lenR === 0) return false
+  if (5 + lenR >= buffer.length) return false
+  if (buffer[4 + lenR] !== 0x02) return false
+
+  var lenS = buffer[5 + lenR]
+  if (lenS === 0) return false
+  if ((6 + lenR + lenS) !== buffer.length) return false
+
+  if (buffer[4] & 0x80) return false
+  if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80)) return false
+
+  if (buffer[lenR + 6] & 0x80) return false
+  if (lenS > 1 && (buffer[lenR + 6] === 0x00) && !(buffer[lenR + 7] & 0x80)) return false
+  return true
+}
+
 function decode (buffer) {
-  // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
   if (buffer.length < 8) throw new Error('DER sequence length is too short')
   if (buffer.length > 72) throw new Error('DER sequence length is too long')
   if (buffer[0] !== 0x30) throw new Error('Expected DER sequence')
@@ -80,6 +105,7 @@ function encode (r, s) {
 }
 
 module.exports = {
+  check: check,
   decode: decode,
   encode: encode
 }
