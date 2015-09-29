@@ -6,14 +6,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitcoinjs/bip69.git"
+    "url": "https://github.com/bitcoinjs/bip66.git"
   },
   "bugs": {
-    "url": "https://github.com/bitcoinjs/bip69/issues"
+    "url": "https://github.com/bitcoinjs/bip66/issues"
   },
-  "homepage": "https://github.com/bitcoinjs/bip69",
+  "homepage": "https://github.com/bitcoinjs/bip66",
   "keywords": [
-    "bip69",
+    "bip66",
     "bitcoin"
   ],
   "main": "index.js",
