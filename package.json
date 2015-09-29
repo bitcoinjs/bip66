@@ -1,6 +1,6 @@
 {
   "name": "bip66",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Strict DER signature encoding/decoding.",
   "author": "Daniel Cousens",
   "license": "MIT",
