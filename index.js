@@ -2,6 +2,8 @@
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 
+var zeroBuffer1 = new Buffer([0])
+
 function check (buffer) {
   if (buffer.length < 8) return false
   if (buffer.length > 72) return false
@@ -49,9 +51,12 @@ function decode (buffer) {
   if (lenS > 1 && (buffer[lenR + 6] === 0x00) && !(buffer[lenR + 7] & 0x80)) throw new Error('S value excessively padded')
 
   // non-BIP66 - extract R, S values
+  // remove leading zero
+  var posR = lenR > 1 && buffer[4] === 0x00 ? 5 : 4
+  var posS = (lenS > 1 && buffer[6 + lenR] === 0x00 ? 7 : 6) + lenR
   return {
-    r: buffer.slice(4, 4 + lenR),
-    s: buffer.slice(6 + lenR)
+    r: buffer.slice(posR, 4 + lenR),
+    s: buffer.slice(posS)
   }
 }
 
@@ -78,16 +83,17 @@ function decode (buffer) {
  * -62300 => 0xff0ca4
 */
 function encode (r, s) {
+  r = Buffer.concat([zeroBuffer1, r])
   var lenR = r.length
-  var lenS = s.length
-  if (lenR === 0) throw new Error('R length is zero')
-  if (lenS === 0) throw new Error('S length is zero')
   if (lenR > 33) throw new Error('R length is too long')
+  // removing excessive leading zeros in r
+  for (var posR = 0; lenR > 1 && r[posR] === 0x00 && !(r[posR + 1] & 0x80); --lenR, ++posR);
+
+  s = Buffer.concat([zeroBuffer1, s])
+  var lenS = s.length
   if (lenS > 33) throw new Error('S length is too long')
-  if (r[0] & 0x80) throw new Error('R value is negative')
-  if (s[0] & 0x80) throw new Error('S value is negative')
-  if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80)) throw new Error('R value excessively padded')
-  if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80)) throw new Error('S value excessively padded')
+  // removing excessive leading zeros in s
+  for (var posS = 0; lenS > 1 && s[posS] === 0x00 && !(s[posS + 1] & 0x80); --lenS, ++posS);
 
   var signature = new Buffer(6 + lenR + lenS)
 
@@ -95,11 +101,11 @@ function encode (r, s) {
   signature[0] = 0x30
   signature[1] = signature.length - 2
   signature[2] = 0x02
-  signature[3] = r.length
-  r.copy(signature, 4)
+  signature[3] = lenR
+  r.copy(signature, 4, posR)
   signature[4 + lenR] = 0x02
-  signature[5 + lenR] = s.length
-  s.copy(signature, 6 + lenR)
+  signature[5 + lenR] = lenS
+  s.copy(signature, 6 + lenR, posS)
 
   return signature
 }
