@@ -2,8 +2,6 @@
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 
-var zeroBuffer1 = new Buffer([0])
-
 function check (buffer) {
   if (buffer.length < 8) return false
   if (buffer.length > 72) return false
@@ -83,17 +81,13 @@ function decode (buffer) {
  * -62300 => 0xff0ca4
 */
 function encode (r, s) {
-  r = Buffer.concat([zeroBuffer1, r])
   var lenR = r.length
+  if (r[0] & 0x80) lenR += 1
   if (lenR > 33) throw new Error('R length is too long')
-  // removing excessive leading zeros in r
-  for (var posR = 0; lenR > 1 && r[posR] === 0x00 && !(r[posR + 1] & 0x80); --lenR, ++posR);
 
-  s = Buffer.concat([zeroBuffer1, s])
   var lenS = s.length
+  if (s[0] & 0x80) lenS += 1
   if (lenS > 33) throw new Error('S length is too long')
-  // removing excessive leading zeros in s
-  for (var posS = 0; lenS > 1 && s[posS] === 0x00 && !(s[posS + 1] & 0x80); --lenS, ++posS);
 
   var signature = new Buffer(6 + lenR + lenS)
 
@@ -102,10 +96,23 @@ function encode (r, s) {
   signature[1] = signature.length - 2
   signature[2] = 0x02
   signature[3] = lenR
-  r.copy(signature, 4, posR)
+
+  if (r[0] & 0x80) {
+    signature[4] = 0x00
+    r.copy(signature, 5)
+  } else {
+    r.copy(signature, 4)
+  }
+
   signature[4 + lenR] = 0x02
   signature[5 + lenR] = lenS
-  s.copy(signature, 6 + lenR, posS)
+
+  if (s[0] & 0x80) {
+    signature[6 + lenR] = 0x00
+    s.copy(signature, 7 + lenR)
+  } else {
+    s.copy(signature, 6 + lenR)
+  }
 
   return signature
 }
