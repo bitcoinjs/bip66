@@ -31,9 +31,9 @@
       "s": "2e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e9"
     },
     {
-      "DER": "3042021d00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb02212e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e925",
+      "DER": "3042021d00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb0221008aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e925",
       "r": "00feb1a12c27e5fe261acc64c0923add082573883e0800d8e4080fa9bb",
-      "s": "2e7aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e925"
+      "s": "008aeb97f4046ea3be60d2896a19c8dc269ab5eb2de968912cd52a076a0a42e925"
     },
     {
       "DER": "303e021d00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd021d009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6",
@@ -44,95 +44,105 @@
   "invalid": {
     "encode": [
       {
-        "exception": "R length is zero",
+        "exception": "^Error: R length is zero$",
         "r": "",
         "s": "0080000000000000000000000000000000000000000000000000000000000000"
       },
       {
-        "exception": "S length is zero",
+        "exception": "^Error: S length is zero$",
         "r": "0080000000000000000000000000000000000000000000000000000000000000",
         "s": ""
       },
       {
-        "exception": "R length is too long",
-        "r": "00800000000000000000000000000000000000000000000000000000000000000000",
-        "s": "008000000000000000000000000000000000000000000000000000000000000000"
+        "exception": "^Error: R value is negative$",
+        "r": "80",
+        "s": "7f"
       },
       {
-        "exception": "S length is too long",
-        "r": "008000000000000000000000000000000000000000000000000000000000000000",
-        "s": "00800000000000000000000000000000000000000000000000000000000000000000"
+        "exception": "^Error: S value is negative$",
+        "r": "7f",
+        "s": "80"
       },
       {
-        "exception": "R value excessively padded",
+        "exception": "^Error: R value excessively padded$",
         "r": "0010000000000000000000000000000000000000000000000000000000000000",
         "s": "0080000000000000000000000000000000000000000000000000000000000000"
       },
       {
-        "exception": "S value excessively padded",
+        "exception": "^Error: S value excessively padded$",
         "r": "0080000000000000000000000000000000000000000000000000000000000000",
         "s": "0010000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "exception": "^Error: R length is too long$",
+        "r": "00800000000000000000000000000000000000000000000000000000000000000000",
+        "s": "008000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "exception": "^Error: S length is too long$",
+        "r": "008000000000000000000000000000000000000000000000000000000000000000",
+        "s": "00800000000000000000000000000000000000000000000000000000000000000000"
       }
     ],
     "decode": [
       {
-        "exception": "DER sequence length is too short",
+        "exception": "^Error: DER sequence length is too short$",
         "DER": "ffffffffffffff"
       },
       {
-        "exception": "DER sequence length is too long",
+        "exception": "^Error: DER sequence length is too long$",
         "DER": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
       {
-        "exception": "Expected DER sequence",
+        "exception": "^Error: Expected DER sequence$",
         "DER": "00ffff0400ffffff020400ffffff"
       },
       {
-        "exception": "DER sequence length is invalid",
+        "exception": "^Error: DER sequence length is invalid$",
         "DER": "30ff020400ffffff020400ffffff"
       },
       {
-        "exception": "DER sequence length is invalid",
+        "exception": "^Error: DER sequence length is invalid$",
         "DER": "300c030400ffffff030400ffffff0000"
       },
       {
-        "exception": "Expected DER integer",
+        "exception": "^Error: Expected DER integer$",
         "DER": "300cff0400ffffff020400ffffff"
       },
       {
-        "exception": "Expected DER integer \\(2\\)",
+        "exception": "^Error: Expected DER integer \\(2\\)$",
         "DER": "300c020200ffffff020400ffffff"
       },
       {
-        "exception": "R length is zero",
+        "exception": "^Error: R length is zero$",
         "DER": "30080200020400ffffff"
       },
       {
-        "exception": "S length is zero",
+        "exception": "^Error: S length is zero$",
         "DER": "3008020400ffffff0200"
       },
       {
-        "exception": "R length is too long",
+        "exception": "^Error: R length is too long$",
         "DER": "300c02dd00ffffff020400ffffff"
       },
       {
-        "exception": "S length is invalid",
+        "exception": "^Error: S length is invalid$",
         "DER": "300c020400ffffff02dd00ffffff"
       },
       {
-        "exception": "R value is negative",
+        "exception": "^Error: R value is negative$",
         "DER": "300c020480000000020400ffffff"
       },
       {
-        "exception": "S value is negative",
+        "exception": "^Error: S value is negative$",
         "DER": "300c020400ffffff020480000000"
       },
       {
-        "exception": "R value excessively padded",
+        "exception": "^Error: R value excessively padded$",
         "DER": "300c02040000ffff020400ffffff"
       },
       {
-        "exception": "S value excessively padded",
+        "exception": "^Error: S value excessively padded$",
         "DER": "300c020400ffffff02040000ffff"
       }
     ]

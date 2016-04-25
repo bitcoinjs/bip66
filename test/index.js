@@ -1,70 +1,54 @@
-/* global describe, it */
-
-var assert = require('assert')
+var test = require('tape')
 var bip66 = require('../')
 var fixtures = require('./fixtures')
 
-describe('bip66', function () {
-  describe('check', function () {
-    fixtures.valid.forEach(function (f) {
-      it('returns true for ' + f.DER, function () {
-        var buffer = new Buffer(f.DER, 'hex')
-
-        assert.strictEqual(bip66.check(buffer), true)
-      })
-    })
-
-    fixtures.invalid.decode.forEach(function (f) {
-      it('returns false for ' + f.DER + ' (' + f.exception + ')', function () {
-        var buffer = new Buffer(f.DER, 'hex')
-
-        assert.strictEqual(bip66.check(buffer), false)
-      })
-    })
+fixtures.valid.forEach(function (fixture) {
+  test('check: returns true for ' + fixture.DER, function (t) {
+    var buffer = new Buffer(fixture.DER, 'hex')
+    t.same(bip66.check(buffer), true)
+    t.end()
   })
 
-  describe('decode', function () {
-    fixtures.valid.forEach(function (f) {
-      it('decodes ' + f.DER, function () {
-        var buffer = new Buffer(f.DER, 'hex')
-        var signature = bip66.decode(buffer)
-
-        assert.strictEqual(signature.r.toString('hex'), f.r)
-        assert.strictEqual(signature.s.toString('hex'), f.s)
-      })
-    })
-
-    fixtures.invalid.decode.forEach(function (f) {
-      it('throws "' + f.exception + '" for ' + f.DER, function () {
-        var buffer = new Buffer(f.DER, 'hex')
-
-        assert.throws(function () {
-          bip66.decode(buffer)
-        }, new RegExp(f.exception))
-      })
-    })
+  test('decode: ' + fixture.DER, function (t) {
+    var buffer = new Buffer(fixture.DER, 'hex')
+    var signature = bip66.decode(buffer)
+    t.same(signature.r.toString('hex'), fixture.r)
+    t.same(signature.s.toString('hex'), fixture.s)
+    t.end()
   })
 
-  describe('encode', function () {
-    fixtures.valid.forEach(function (f) {
-      it('encodes ' + f.r + ', ' + f.s, function () {
-        var r = new Buffer(f.r, 'hex')
-        var s = new Buffer(f.s, 'hex')
+  test('encode: ' + fixture.r + ', ' + fixture.s, function (t) {
+    var r = new Buffer(fixture.r, 'hex')
+    var s = new Buffer(fixture.s, 'hex')
+    var DER = bip66.encode(r, s)
+    t.same(DER.toString('hex'), fixture.DER)
+    t.end()
+  })
+})
 
-        var DER = bip66.encode(r, s)
-        assert.strictEqual(DER.toString('hex'), f.DER)
-      })
-    })
+fixtures.invalid.decode.forEach(function (fixture) {
+  test('check: returns false for ' + fixture.DER + ' (' + fixture.exception + ')', function (t) {
+    var buffer = new Buffer(fixture.DER, 'hex')
+    t.same(bip66.check(buffer), false)
+    t.end()
+  })
 
-    fixtures.invalid.encode.forEach(function (f) {
-      it('throws "' + f.exception + '" for ' + f.r + ', ' + f.s, function () {
-        var r = new Buffer(f.r, 'hex')
-        var s = new Buffer(f.s, 'hex')
+  test('throws "' + fixture.exception + '" for ' + fixture.DER, function (t) {
+    var buffer = new Buffer(fixture.DER, 'hex')
+    t.throws(function () {
+      bip66.decode(buffer)
+    }, new RegExp(fixture.exception))
+    t.end()
+  })
+})
 
-        assert.throws(function () {
-          bip66.encode(r, s)
-        }, new RegExp(f.exception))
-      })
-    })
+fixtures.invalid.encode.forEach(function (fixture) {
+  test('throws "' + fixture.exception + '" for ' + fixture.r + ', ' + fixture.s, function (t) {
+    var r = new Buffer(fixture.r, 'hex')
+    var s = new Buffer(fixture.s, 'hex')
+    t.throws(function () {
+      bip66.encode(r, s)
+    }, new RegExp(fixture.exception))
+    t.end()
   })
 })
