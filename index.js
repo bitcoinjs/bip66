@@ -2,7 +2,7 @@
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 
-function check (buffer) {
+exports.check = function check (buffer) {
   if (buffer.length < 8) return false
   if (buffer.length > 72) return false
   if (buffer[0] !== 0x30) return false
@@ -26,7 +26,7 @@ function check (buffer) {
   return true
 }
 
-function decode (buffer) {
+exports.decode = function decode (buffer) {
   if (buffer.length < 8) throw new Error('DER sequence length is too short')
   if (buffer.length > 72) throw new Error('DER sequence length is too long')
   if (buffer[0] !== 0x30) throw new Error('Expected DER sequence')
@@ -77,17 +77,17 @@ function decode (buffer) {
  *  62300 => 0x00f35c
  * -62300 => 0xff0ca4
 */
-function encode (r, s) {
+exports.encode = function encode (r, s) {
   var lenR = r.length
   var lenS = s.length
   if (lenR === 0) throw new Error('R length is zero')
   if (lenS === 0) throw new Error('S length is zero')
-  if (lenR > 33) throw new Error('R length is too long')
-  if (lenS > 33) throw new Error('S length is too long')
   if (r[0] & 0x80) throw new Error('R value is negative')
   if (s[0] & 0x80) throw new Error('S value is negative')
-  if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80)) throw new Error('R value excessively padded')
-  if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80)) throw new Error('S value excessively padded')
+  if (r[0] === 0x00 && !(r[1] & 0x80)) throw new Error('R value excessively padded')
+  if (s[0] === 0x00 && !(s[1] & 0x80)) throw new Error('S value excessively padded')
+  if (lenR > 33 || (lenR > 32 && r[0] !== 0x00)) throw new Error('R length is too long')
+  if (lenS > 33 || (lenS > 32 && s[0] !== 0x00)) throw new Error('S length is too long')
 
   var signature = new Buffer(6 + lenR + lenS)
 
@@ -102,10 +102,4 @@ function encode (r, s) {
   s.copy(signature, 6 + lenR)
 
   return signature
-}
-
-module.exports = {
-  check: check,
-  decode: decode,
-  encode: encode
 }
