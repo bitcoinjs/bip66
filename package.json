@@ -2,47 +2,33 @@
   "name": "bip66",
   "version": "1.1.1",
   "description": "Strict DER signature encoding/decoding.",
-  "author": "Daniel Cousens",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bitcoinjs/bip66.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bitcoinjs/bip66/issues"
-  },
-  "homepage": "https://github.com/bitcoinjs/bip66",
   "keywords": [
     "bip66",
     "bitcoin"
   ],
+  "homepage": "https://github.com/bitcoinjs/bip66",
+  "bugs": {
+    "url": "https://github.com/bitcoinjs/bip66/issues"
+  },
+  "license": "MIT",
+  "author": "Daniel Cousens",
+  "files": [
+    "index.js"
+  ],
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitcoinjs/bip66.git"
+  },
   "scripts": {
-    "coverage": "mocha --require blanket -R travis-cov",
-    "coverage-local": "mocha --require blanket -R html-cov",
-    "standard": "standard",
-    "test": "npm run standard && npm run unit",
-    "unit": "mocha"
+    "coverage": "nyc --check-coverage --branches 100 --functions 100 tape test/*.js",
+    "lint": "standard",
+    "test": "npm run lint && npm run unit",
+    "unit": "tape test/*.js"
   },
-  "config": {
-    "blanket": {
-      "pattern": [
-        ""
-      ],
-      "data-cover-never": [
-        "node_modules",
-        "test"
-      ]
-    },
-    "travis-cov": {
-      "threshold": 100
-    }
-  },
-  "dependencies": {},
   "devDependencies": {
-    "blanket": "*",
-    "mocha": "*",
-    "standard": "*",
-    "travis-cov": "*"
+    "nyc": "^6.4.0",
+    "standard": "^6.0.8",
+    "tape": "^4.5.1"
   }
 }
