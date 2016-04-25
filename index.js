@@ -49,12 +49,9 @@ function decode (buffer) {
   if (lenS > 1 && (buffer[lenR + 6] === 0x00) && !(buffer[lenR + 7] & 0x80)) throw new Error('S value excessively padded')
 
   // non-BIP66 - extract R, S values
-  // remove leading zero
-  var posR = lenR > 1 && buffer[4] === 0x00 ? 5 : 4
-  var posS = (lenS > 1 && buffer[6 + lenR] === 0x00 ? 7 : 6) + lenR
   return {
-    r: buffer.slice(posR, 4 + lenR),
-    s: buffer.slice(posS)
+    r: buffer.slice(4, 4 + lenR),
+    s: buffer.slice(6 + lenR)
   }
 }
 
@@ -82,12 +79,15 @@ function decode (buffer) {
 */
 function encode (r, s) {
   var lenR = r.length
-  if (r[0] & 0x80) lenR += 1
-  if (lenR > 33) throw new Error('R length is too long')
-
   var lenS = s.length
-  if (s[0] & 0x80) lenS += 1
+  if (lenR === 0) throw new Error('R length is zero')
+  if (lenS === 0) throw new Error('S length is zero')
+  if (lenR > 33) throw new Error('R length is too long')
   if (lenS > 33) throw new Error('S length is too long')
+  if (r[0] & 0x80) throw new Error('R value is negative')
+  if (s[0] & 0x80) throw new Error('S value is negative')
+  if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80)) throw new Error('R value excessively padded')
+  if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80)) throw new Error('S value excessively padded')
 
   var signature = new Buffer(6 + lenR + lenS)
 
@@ -95,24 +95,11 @@ function encode (r, s) {
   signature[0] = 0x30
   signature[1] = signature.length - 2
   signature[2] = 0x02
-  signature[3] = lenR
-
-  if (r[0] & 0x80) {
-    signature[4] = 0x00
-    r.copy(signature, 5)
-  } else {
-    r.copy(signature, 4)
-  }
-
+  signature[3] = r.length
+  r.copy(signature, 4)
   signature[4 + lenR] = 0x02
-  signature[5 + lenR] = lenS
-
-  if (s[0] & 0x80) {
-    signature[6 + lenR] = 0x00
-    s.copy(signature, 7 + lenR)
-  } else {
-    s.copy(signature, 6 + lenR)
-  }
+  signature[5 + lenR] = s.length
+  s.copy(signature, 6 + lenR)
 
   return signature
 }
