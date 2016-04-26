@@ -108,4 +108,4 @@ module.exports = {
   check: check,
   decode: decode,
   encode: encode
-} 
+}
