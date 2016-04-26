@@ -1,7 +1,7 @@
 # bip66
 
-[![TRAVIS](https://secure.travis-ci.org/bitcoinjs/bip66.png)](http://travis-ci.org/bitcoinjs/bip66)
-[![NPM](http://img.shields.io/npm/v/bip66.svg)](https://www.npmjs.org/package/bip66)
+[![NPM Package](https://img.shields.io/npm/v/bip66.svg?style=flat-square)](https://www.npmjs.org/package/bip66)
+[![Build Status](https://img.shields.io/travis/bitcoinjs/bip66.svg?branch=master&style=flat-square)](https://travis-ci.org/bitcoinjs/bip66)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
@@ -9,6 +9,10 @@ Strict DER signature encoding/decoding.
 
 See [bip66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki).
 
+- This module **works only with [two's complement](https://en.wikipedia.org/wiki/Two's_complement) number**.
+- BIP66 doesn't check that `r` or `s` are fully valid.
+  - `check`/`decode` doesn't check that `r` or `s` great than 33 bytes or that this number represent valid point on elliptic curve.
+  - `encode` doesn't check that `r`/`s` represent valid point on elliptic curve.
 
 ## Example
 
