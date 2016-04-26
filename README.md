@@ -9,7 +9,7 @@ Strict DER signature encoding/decoding.
 
 See [bip66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki).
 
-- This module **works only with [two's complement](https://en.wikipedia.org/wiki/Two's_complement) number**.
+- This module **works only with [two's complement](https://en.wikipedia.org/wiki/Two's_complement) numbers**.
 - BIP66 doesn't check that `r` or `s` are fully valid.
   - `check`/`decode` doesn't check that `r` or `s` great than 33 bytes or that this number represent valid point on elliptic curve.
   - `encode` doesn't check that `r`/`s` represent valid point on elliptic curve.
