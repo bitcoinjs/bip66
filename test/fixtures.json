@@ -39,6 +39,11 @@
       "DER": "303e021d00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd021d009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6",
       "r": "00c1d545da2e4edfbc65e9267d3c0a6fdda41793d0fd945f15acbcf0dd",
       "s": "009acffda3ca5e7c349c35ba606f0a8f1ec7815b653b51695ca9ee69a6"
+    },
+    {
+      "DER": "3006020100020100",
+      "r": "00",
+      "s": "00"
     }
   ],
   "invalid": {
