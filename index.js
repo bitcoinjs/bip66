@@ -13,12 +13,12 @@ function check (buffer) {
 
   var lenR = buffer[3]
   if (lenR === 0) return false
-  if (5 + lenR >= buffer.length) return false
+  if (4 + lenR >= buffer.length) return false
   if (buffer[4 + lenR] !== 0x02) return false
 
   var lenS = buffer[5 + lenR]
   if (lenS === 0) return false
-  if ((6 + lenR + lenS) !== buffer.length) return false
+  if ((5 + lenR + lenS) !== buffer.length) return false
 
   if (buffer[4] & 0x80) return false
   if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80)) return false
@@ -37,12 +37,12 @@ function decode (buffer) {
 
   var lenR = buffer[3]
   if (lenR === 0) throw new Error('R length is zero')
-  if (5 + lenR >= buffer.length) throw new Error('R length is too long')
+  if (4 + lenR >= buffer.length) throw new Error('R length is too long')
   if (buffer[4 + lenR] !== 0x02) throw new Error('Expected DER integer (2)')
 
   var lenS = buffer[5 + lenR]
   if (lenS === 0) throw new Error('S length is zero')
-  if ((6 + lenR + lenS) !== buffer.length) throw new Error('S length is invalid')
+  if ((5 + lenR + lenS) !== buffer.length) throw new Error('S length is invalid')
 
   if (buffer[4] & 0x80) throw new Error('R value is negative')
   if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80)) throw new Error('R value excessively padded')
