@@ -1,75 +1,57 @@
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
-/* eslint @typescript-eslint/strict-boolean-expressions: 0 */
 export function check(buffer) {
+    var ret = internalCheck(buffer);
+    if (typeof ret === 'string') {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function internalCheck(buffer) {
     if (buffer.length < 8)
-        return false;
+        return 'DER sequence length is too short';
     if (buffer.length > 72)
-        return false;
+        return 'DER sequence length is too long';
     if (buffer[0] !== 0x30)
-        return false;
+        return 'Expected DER sequence (48)';
     if (buffer[1] !== buffer.length - 2)
-        return false;
+        return 'DER sequence length is invalid';
     if (buffer[2] !== 0x02)
-        return false;
+        return 'Expected DER integer (2)';
     var lenR = buffer[3];
     if (lenR === 0)
-        return false;
+        return 'R length is zero';
     if (5 + lenR >= buffer.length)
-        return false;
+        return 'R length is too long';
     if (buffer[4 + lenR] !== 0x02)
-        return false;
+        return 'Expected DER integer (2)';
     var lenS = buffer[5 + lenR];
     if (lenS === 0)
-        return false;
+        return 'S length is zero';
     if ((6 + lenR + lenS) !== buffer.length)
-        return false;
-    if (buffer[4] & 0x80)
-        return false;
-    if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80))
-        return false;
-    if (buffer[lenR + 6] & 0x80)
-        return false;
-    if (lenS > 1 && (buffer[lenR + 6] === 0x00) && !(buffer[lenR + 7] & 0x80))
-        return false;
-    return true;
+        return 'S length is invalid';
+    if ((buffer[4] & 0x80) !== 0)
+        return 'R value is negative';
+    if (lenR > 1 && (buffer[4] === 0x00) && (buffer[5] & 0x80) === 0)
+        return 'R value excessively padded';
+    if ((buffer[lenR + 6] & 0x80) !== 0)
+        return 'S value is negative';
+    if (lenS > 1 && (buffer[lenR + 6] === 0x00) && (buffer[lenR + 7] & 0x80) === 0)
+        return 'S value excessively padded';
+    return lenR;
 }
 export function decode(buffer) {
-    if (buffer.length < 8)
-        throw new Error('DER sequence length is too short');
-    if (buffer.length > 72)
-        throw new Error('DER sequence length is too long');
-    if (buffer[0] !== 0x30)
-        throw new Error('Expected DER sequence');
-    if (buffer[1] !== buffer.length - 2)
-        throw new Error('DER sequence length is invalid');
-    if (buffer[2] !== 0x02)
-        throw new Error('Expected DER integer');
-    var lenR = buffer[3];
-    if (lenR === 0)
-        throw new Error('R length is zero');
-    if (5 + lenR >= buffer.length)
-        throw new Error('R length is too long');
-    if (buffer[4 + lenR] !== 0x02)
-        throw new Error('Expected DER integer (2)');
-    var lenS = buffer[5 + lenR];
-    if (lenS === 0)
-        throw new Error('S length is zero');
-    if ((6 + lenR + lenS) !== buffer.length)
-        throw new Error('S length is invalid');
-    if (buffer[4] & 0x80)
-        throw new Error('R value is negative');
-    if (lenR > 1 && (buffer[4] === 0x00) && !(buffer[5] & 0x80))
-        throw new Error('R value excessively padded');
-    if (buffer[lenR + 6] & 0x80)
-        throw new Error('S value is negative');
-    if (lenS > 1 && (buffer[lenR + 6] === 0x00) && !(buffer[lenR + 7] & 0x80))
-        throw new Error('S value excessively padded');
+    var ret = internalCheck(buffer);
+    if (typeof ret === 'string') {
+        throw new Error(ret);
+    }
     // non-BIP66 - extract R, S values
     return {
-        r: buffer.subarray(4, 4 + lenR),
-        s: buffer.subarray(6 + lenR)
+        r: buffer.subarray(4, 4 + ret),
+        s: buffer.subarray(6 + ret)
     };
 }
 /*
@@ -105,13 +87,13 @@ export function encode(r, s) {
         throw new Error('R length is too long');
     if (lenS > 33)
         throw new Error('S length is too long');
-    if (r[0] & 0x80)
+    if ((r[0] & 0x80) !== 0)
         throw new Error('R value is negative');
-    if (s[0] & 0x80)
+    if ((s[0] & 0x80) !== 0)
         throw new Error('S value is negative');
-    if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80))
+    if (lenR > 1 && (r[0] === 0x00) && (r[1] & 0x80) === 0)
         throw new Error('R value excessively padded');
-    if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80))
+    if (lenS > 1 && (s[0] === 0x00) && (s[1] & 0x80) === 0)
         throw new Error('S value excessively padded');
     var signature = new Uint8Array(6 + lenR + lenS);
     // 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
@@ -125,4 +107,3 @@ export function encode(r, s) {
     signature.set(s, 6 + lenR);
     return signature;
 }
-/* eslint @typescript-eslint/strict-boolean-expressions: 1 */
