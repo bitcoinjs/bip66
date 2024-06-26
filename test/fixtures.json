@@ -99,7 +99,7 @@
         "DER": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       },
       {
-        "exception": "^Error: Expected DER sequence$",
+        "exception": "^Error: Expected DER sequence \\(48\\)$",
         "DER": "00ffff0400ffffff020400ffffff"
       },
       {
@@ -111,7 +111,7 @@
         "DER": "300c030400ffffff030400ffffff0000"
       },
       {
-        "exception": "^Error: Expected DER integer$",
+        "exception": "^Error: Expected DER integer \\(2\\)$",
         "DER": "300cff0400ffffff020400ffffff"
       },
       {

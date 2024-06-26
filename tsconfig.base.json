@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "rootDir": "./ts_src",
+      "types": ["node"],
+      "allowJs": false,
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,
+      "esModuleInterop": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules/**/*"]
+  }
+  
