@@ -21,7 +21,7 @@ import * as bip66 from"bip66"
 const r = Buffer.from('1ea1fdff81b3a271659df4aad19bc4ef83def389131a36358fe64b245632e777', 'hex')
 const s = Buffer.from('29e164658be9ce810921bf81d6b86694785a79ea1e52dbfa5105148d1f0bc1', 'hex')
 
-// a buffer or UInt8Array can be passed in to the encode/decode functions
+// Buffer or UInt8Array can be passed in to the encode/decode functions
 const signature = bip66.encode(r, s)
 // Uint8Array(69) [
 //    48,  67,   2,  32,  30, 161, 253, 255, 129, 179, 162,
