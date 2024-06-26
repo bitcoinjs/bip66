@@ -14,7 +14,7 @@
   "license": "MIT",
   "author": "Daniel Cousens",
   "files": [
-    "index.js"
+    "src"
   ],
   "main": "src/cjs/index.cjs",
   "module": "src/esm/index.js",
