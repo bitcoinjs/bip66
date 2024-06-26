@@ -16,14 +16,14 @@
   "files": [
     "index.js"
   ],
-  "main": "src/cjs/index.js",
+  "main": "src/cjs/index.cjs",
   "module": "src/esm/index.js",
   "types": "src/cjs/index.d.ts",
   "exports": {
     ".": {
       "types": "./src/cjs/index.d.ts",
       "import": "./src/esm/index.js",
-      "require": "./src/cjs/index.js"
+      "require": "./src/cjs/index.cjs"
     }
   },
   "repository": {
@@ -32,7 +32,9 @@
   },
   "scripts": {
     "build": "npm run clean && tsc -p ./tsconfig.json && tsc -p ./tsconfig.cjs.json; npm run standard -- --fix",
-    "standard": "ts=standard --ignore test",
+    "postbuild": "find src/cjs -type f -name \"*.js\" -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
+    "standard": "ts-standard --ignore test --ignore src",
+    "gitdiff": "npm run build && git diff --exit-code",
     "clean": "rimraf src",
     "coverage": "c8 --check-coverage --branches 100 --functions 100 tape test/*.js",
     "lint": "npm run standard",

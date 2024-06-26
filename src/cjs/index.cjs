@@ -1,8 +1,13 @@
+"use strict";
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 /* eslint @typescript-eslint/strict-boolean-expressions: 0 */
-export function check(buffer) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.check = check;
+exports.decode = decode;
+exports.encode = encode;
+function check(buffer) {
     if (buffer.length < 8)
         return false;
     if (buffer.length > 72)
@@ -35,7 +40,7 @@ export function check(buffer) {
         return false;
     return true;
 }
-export function decode(buffer) {
+function decode(buffer) {
     if (buffer.length < 8)
         throw new Error('DER sequence length is too short');
     if (buffer.length > 72)
@@ -94,7 +99,7 @@ export function decode(buffer) {
  *  62300 => 0x00f35c
  * -62300 => 0xff0ca4
 */
-export function encode(r, s) {
+function encode(r, s) {
     var lenR = r.length;
     var lenS = s.length;
     if (lenR === 0)
