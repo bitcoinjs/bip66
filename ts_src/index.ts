@@ -93,7 +93,7 @@ export function encode (r: Uint8Array, s: Uint8Array): Uint8Array {
   if (lenR > 1 && (r[0] === 0x00) && !(r[1] & 0x80)) throw new Error('R value excessively padded')
   if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80)) throw new Error('S value excessively padded')
 
-  const signature = Buffer.allocUnsafe(6 + lenR + lenS)
+  const signature = new Uint8Array(6 + lenR + lenS)
 
   // 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
   signature[0] = 0x30

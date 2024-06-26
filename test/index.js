@@ -21,7 +21,7 @@ valid.forEach(function (fixture) {
   tape('encode: ' + fixture.r + ', ' + fixture.s, function (t) {
     const r = Buffer.from(fixture.r, 'hex')
     const s = Buffer.from(fixture.s, 'hex')
-    const DER = encode(r, s)
+    const DER = Buffer.from(encode(r, s))
     t.same(DER.toString('hex'), fixture.DER)
     t.end()
   })

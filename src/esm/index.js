@@ -113,7 +113,7 @@ export function encode(r, s) {
         throw new Error('R value excessively padded');
     if (lenS > 1 && (s[0] === 0x00) && !(s[1] & 0x80))
         throw new Error('S value excessively padded');
-    var signature = Buffer.allocUnsafe(6 + lenR + lenS);
+    var signature = new Uint8Array(6 + lenR + lenS);
     // 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
     signature[0] = 0x30;
     signature[1] = signature.length - 2;
