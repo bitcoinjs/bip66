@@ -2,9 +2,7 @@
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
 
-var Buffer = require('safe-buffer').Buffer
-
-function check (buffer) {
+export function check (buffer: Buffer) {
   if (buffer.length < 8) return false
   if (buffer.length > 72) return false
   if (buffer[0] !== 0x30) return false
@@ -28,7 +26,7 @@ function check (buffer) {
   return true
 }
 
-function decode (buffer) {
+export function decode (buffer: Buffer) {
   if (buffer.length < 8) throw new Error('DER sequence length is too short')
   if (buffer.length > 72) throw new Error('DER sequence length is too long')
   if (buffer[0] !== 0x30) throw new Error('Expected DER sequence')
@@ -52,8 +50,8 @@ function decode (buffer) {
 
   // non-BIP66 - extract R, S values
   return {
-    r: buffer.slice(4, 4 + lenR),
-    s: buffer.slice(6 + lenR)
+    r: buffer.subarray(4, 4 + lenR),
+    s: buffer.subarray(6 + lenR)
   }
 }
 
@@ -79,7 +77,7 @@ function decode (buffer) {
  *  62300 => 0x00f35c
  * -62300 => 0xff0ca4
 */
-function encode (r, s) {
+export function encode (r: Buffer, s: Buffer) {
   var lenR = r.length
   var lenS = s.length
   if (lenR === 0) throw new Error('R length is zero')
@@ -104,10 +102,4 @@ function encode (r, s) {
   s.copy(signature, 6 + lenR)
 
   return signature
-}
-
-module.exports = {
-  check: check,
-  decode: decode,
-  encode: encode
 }
